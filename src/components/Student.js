@@ -13,20 +13,20 @@ export default class Student extends React.Component {
       uid: this.props.socket.id,
       value: sliderValue
     };
-    this.props.socket.emit("change-value", user);
+    this.props.socket.emit("slider-value", user);
   };
 
-  joinRoom = e => {
+  enterRoom = e => {
     e.preventDefault();
     const roomInput = this.roomInputValue.current.value;
-    this.props.socket.emit("enterRoom", roomInput);
+    this.props.socket.emit("enterRoom", roomInput, false);
   };
 
   render() {
     return (
       <div>
         <h2>Student</h2>
-        <form onSubmit={this.joinRoom}>
+        <form onSubmit={this.enterRoom}>
           <input ref={this.roomInputValue} type="text" />
           <button>Join Room</button>
         </form>

@@ -34,14 +34,17 @@ export default class Teacher extends React.Component {
 
   enterRoom = room => {
     console.log(this.props.socket);
-    this.props.socket.emit("enterRoom", room);
+    this.props.socket.emit("enterRoom", room, true);
     this.setState({
       currentRoom: room
     });
   };
 
   studentInput = () => {
-    this.props.socket.emit("getRoomSnapshot");
+    this.props.socket.emit("getRoomSnapshot", this.state.currentRoom);
+    this.props.socket.on("usersInRoom", data => {
+      console.log(data);
+    });
   };
 
   render() {

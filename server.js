@@ -17,16 +17,16 @@ let connectCounter = 0;
 
 io.on("connection", socket => {
   console.log("made socket connection", socket.id);
-  users.push({
-    userId: socket.id,
-    value: null
-  });
 
-  socket.on("enterRoom", function(room) {
+  socket.on("enterRoom", function(room, isAdmin) {
     socket.join(room);
-    console.log(room);
-
     console.log(io.nsps["/"].adapter.rooms[room]);
+    users.push({
+      userId: socket.id,
+      value: null,
+      room: parseInt(room),
+      role: isAdmin ? "teacher" : "student"
+    });
   });
 
   connectCounter++;
@@ -38,10 +38,11 @@ io.on("connection", socket => {
     users = users.filter(user => user.userId !== socket.id);
   });
 
-  socket.on("change-value", data => {
+  socket.on("slider-value", data => {
     users.map(user =>
       user.userId === data.uid ? (user.value = data.value) : ""
     );
+    console.log(users);
   });
 
   socket.on("get-users", function() {
@@ -55,5 +56,11 @@ io.on("connection", socket => {
     console.log(data);
   });
 
-  socket.on("getRoomSnapshot", () => {});
+  socket.on("getRoomSnapshot", data => {
+    const usersInRoom = users.filter(user => {
+      return user.room == data;
+    });
+    io.emit("usersInRoom", usersInRoom);
+    console.log(usersInRoom);
+  });
 });
