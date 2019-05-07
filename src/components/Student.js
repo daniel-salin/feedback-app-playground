@@ -5,26 +5,29 @@ export default class Student extends React.Component {
     super(props);
   }
 
-  handleSlider = (e) => {
+  handleSlider = e => {
     const sliderValue = e.target.value;
     const user = {
       uid: this.props.socket.id,
       value: sliderValue
-    }
+    };
     this.props.socket.emit("change-value", user);
-    
-  }
+  };
 
-  render()
-  {
+  render() {
     return (
-    <div>
-      <h2>Student</h2>
-      <form>
-      <input onChange={this.handleSlider} type="range" max="10" min="0" />
-      </form>
-      <p>{this.props.foo}</p>
-    </div>
-  )
-}
+      <div>
+        <h2>Student</h2>
+        <form onSubmit="">
+          <input type="text" />
+          <button>Join Room</button>
+        </form>
+
+        <form>
+          <input onChange={this.handleSlider} type="range" max="10" min="0" />
+        </form>
+        <p>{this.props.foo}</p>
+      </div>
+    );
+  }
 }

@@ -1,7 +1,6 @@
 // /server.js
-const app = require('express')();
+const app = require("express")();
 var socket = require("socket.io");
-
 
 // App setup
 var server = app.listen(8000, () => {
@@ -37,7 +36,7 @@ io.on("connection", socket => {
       value: data.value
     });
     console.log(users);
-  })
+  });
 
   socket.on("get-users", function() {
     console.log(users);
@@ -45,7 +44,8 @@ io.on("connection", socket => {
 
   socket.on("createRoom", data => {
     socket.join(data);
-    console.log(io.sockets.rooms);
+    console.log(io.sockets);
     io.emit("createdRoom", data);
+    console.log(data);
   });
 });
