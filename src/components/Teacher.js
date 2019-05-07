@@ -6,7 +6,9 @@ export default class Teacher extends React.Component {
 
     this.state = {
       rooms: [],
-      currentRoom: null
+      currentRoom: null,
+      currentRoomStatus: [],
+      averageScore: null
     };
   }
 
@@ -14,7 +16,6 @@ export default class Teacher extends React.Component {
     this.setState({
       rooms: [...this.state.rooms, data]
     });
-    console.log(this.state);
   };
   componentDidMount() {
     this.props.socket.on("createdRoom", data => {
@@ -25,15 +26,11 @@ export default class Teacher extends React.Component {
   }
 
   createRoom = () => {
-    console.log(this.state);
-    console.log(this.props.socket);
     let key = Math.floor(Math.random() * 1000);
     this.props.socket.emit("createRoom", key);
-    console.log(this.state);
   };
 
   enterRoom = room => {
-    console.log(this.props.socket);
     this.props.socket.emit("enterRoom", room, true);
     this.setState({
       currentRoom: room
@@ -43,7 +40,25 @@ export default class Teacher extends React.Component {
   studentInput = () => {
     this.props.socket.emit("getRoomSnapshot", this.state.currentRoom);
     this.props.socket.on("usersInRoom", data => {
-      console.log(data);
+      this.setState({
+        currentRoomStatus: data
+      }); 
+      console.log(this.state.currentRoomStatus);
+      const numberOfUsers = this.state.currentRoomStatus.filter(user => user.role === "student").length;
+      const filterUsersArray = this.state.currentRoomStatus.filter(user => user.role === "student");
+      const scoreArray = filterUsersArray.map(user => {
+        return parseInt(user.value)
+      });
+      const reducer = (accumulator, currentValue) => accumulator + currentValue;
+      const totalScore = scoreArray.reduce(reducer);
+      const averageScore = totalScore/numberOfUsers;
+      console.log("score array: ", scoreArray);
+      console.log("total score: ", totalScore);
+      console.log("number of users: ", numberOfUsers);
+      console.log("average score: ", averageScore);
+      this.setState({
+        averageScore: averageScore
+      }); 
     });
   };
 
@@ -51,11 +66,13 @@ export default class Teacher extends React.Component {
     return (
       <div>
         <h2>Teacher</h2>
-        {this.state.currentRoom !== null ? (
+        {this.state.currentRoom !== null 
+          ? (
+            <div>
           <h3>{this.state.currentRoom}</h3>
-        ) : (
-          ""
-        )}
+          <p>{this.state.averageScore}</p>
+          </div>) 
+          : ("")}
         <button onClick={this.createRoom}>Create Room</button>
         <button onClick={this.test}>Test</button>
         <ul style={{ listStyleType: "none" }}>
@@ -73,7 +90,6 @@ export default class Teacher extends React.Component {
             );
           })}
         </ul>
-
         <div>
           <button onClick={this.studentInput}>Get user info</button>
         </div>

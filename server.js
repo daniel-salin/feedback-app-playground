@@ -23,7 +23,7 @@ io.on("connection", socket => {
     console.log(io.nsps["/"].adapter.rooms[room]);
     users.push({
       userId: socket.id,
-      value: null,
+      value: 5,
       room: parseInt(room),
       role: isAdmin ? "teacher" : "student"
     });
@@ -42,7 +42,6 @@ io.on("connection", socket => {
     users.map(user =>
       user.userId === data.uid ? (user.value = data.value) : ""
     );
-    console.log(users);
   });
 
   socket.on("get-users", function() {
@@ -51,9 +50,7 @@ io.on("connection", socket => {
 
   socket.on("createRoom", data => {
     socket.join(data);
-    console.log(io.sockets);
     io.emit("createdRoom", data);
-    console.log(data);
   });
 
   socket.on("getRoomSnapshot", data => {
@@ -61,6 +58,5 @@ io.on("connection", socket => {
       return user.room == data;
     });
     io.emit("usersInRoom", usersInRoom);
-    console.log(usersInRoom);
   });
 });
