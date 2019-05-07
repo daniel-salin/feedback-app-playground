@@ -74,7 +74,6 @@ export default class Teacher extends React.Component {
           </div>) 
           : ("")}
         <button onClick={this.createRoom}>Create Room</button>
-        <button onClick={this.test}>Test</button>
         <ul style={{ listStyleType: "none" }}>
           {this.state.rooms.map(room => {
             return (
