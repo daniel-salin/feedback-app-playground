@@ -22,6 +22,10 @@ io.on("connection", socket => {
     value: null
   });
 
+  socket.on("enterRoom", function(room) {
+    socket.join(room);
+  });
+  
   connectCounter++;
   console.log("Active connected users:", connectCounter);
 

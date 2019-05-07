@@ -31,12 +31,23 @@ export default class Teacher extends React.Component {
     console.log(this.state);
   };
 
+  enterRoom = (room) => {
+    console.log(this.props.socket);
+    this.props.socket.emit("enterRoom", room);
+    
+  }
+
   render() {
     return (
       <div>
         <h2>Teacher- {this.props.foo}</h2>
         <button onClick={this.createRoom}>Create Room</button>
         <button onClick={this.test}>Test</button>
+        <ul style={{listStyleType:"none"}}>
+          {this.state.rooms.map(room => {
+            return <button key={room} value={room} onClick={() => {this.enterRoom(room)}}>Room ID: {room}</button>
+          })}
+        </ul>
       </div>
     );
   }
