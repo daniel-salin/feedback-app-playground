@@ -1,26 +1,49 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import io from "socket.io-client"
 import './App.css';
+import Student from "./Student"
+import Teacher from "./Teacher"
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.socket = io.connect("http://localhost:8000");
+}
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+getUserHandler = (e) => {
+  this.socket.emit("get-users");
+};
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Feedback App</h1>
+        <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/student/">Student</Link>
+            </li>
+            <li>
+              <Link to="/teacher/">Users</Link>
+            </li>
+          </ul>
+        </nav>
+<div style={{background:"white", padding:"10px"}}>
+        <Route path="/" exact render={()=><Index socket={this.socket}/>} />
+        <Route path="/student/" render={()=><Student socket={this.socket}/>}/>
+        <Route path="/teacher/" render={()=><Teacher socket={this.socket}/>} />
+</div>
+      </div>
+    </Router>
+        <button onClick={this.getUserHandler}>Get active users</button>
+      </div>
+    );
+  }
 }
 
 export default App;
