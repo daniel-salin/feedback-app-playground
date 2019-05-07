@@ -22,8 +22,20 @@ io.on("connection", socket => {
     value: null
   });
 
+  socket.on("enterRoom", function(room) {
+    socket.join(room);
+    console.log(room);
+
+    console.log(io.nsps["/"].adapter.rooms[room]);
+  });
+
   connectCounter++;
   console.log("Active connected users:", connectCounter);
+
+  function NumClientsInRoom(namespace, room) {
+    var clients = io.nsps[namespace].adapter.rooms[room];
+    return Object.keys(clients).length;
+  }
 
   socket.on("disconnect", function() {
     connectCounter--;
