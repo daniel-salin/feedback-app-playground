@@ -32,11 +32,6 @@ io.on("connection", socket => {
   connectCounter++;
   console.log("Active connected users:", connectCounter);
 
-  function NumClientsInRoom(namespace, room) {
-    var clients = io.nsps[namespace].adapter.rooms[room];
-    return Object.keys(clients).length;
-  }
-
   socket.on("disconnect", function() {
     connectCounter--;
     console.log("Active connected users: ", connectCounter);
