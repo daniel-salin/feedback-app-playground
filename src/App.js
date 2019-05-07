@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import io from "socket.io-client"
 import './App.css';
-import Student from "./Student"
-import Teacher from "./Teacher"
-import LandingPage from './LandingPage';
+import Student from "./components/Student"
+import Teacher from "./components/Teacher"
+import LandingPage from './components/LandingPage';
 class App extends React.Component {
   constructor(props) {
     super(props);
