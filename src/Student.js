@@ -6,7 +6,6 @@ export default class Student extends React.Component {
   }
 
   handleSlider = (e) => {
-    // console.log(this.props.socket.id)
     const sliderValue = e.target.value;
     const user = {
       uid: this.props.socket.id,

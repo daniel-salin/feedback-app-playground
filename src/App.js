@@ -4,6 +4,7 @@ import io from "socket.io-client"
 import './App.css';
 import Student from "./Student"
 import Teacher from "./Teacher"
+import LandingPage from './LandingPage';
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -29,12 +30,12 @@ getUserHandler = (e) => {
               <Link to="/student/">Student</Link>
             </li>
             <li>
-              <Link to="/teacher/">Users</Link>
+              <Link to="/teacher/">Teacher</Link>
             </li>
           </ul>
         </nav>
 <div style={{background:"white", padding:"10px"}}>
-        <Route path="/" exact render={()=><Index socket={this.socket}/>} />
+        <Route path="/" exact render={()=><LandingPage socket={this.socket}/>} />
         <Route path="/student/" render={()=><Student socket={this.socket}/>}/>
         <Route path="/teacher/" render={()=><Teacher socket={this.socket}/>} />
 </div>
