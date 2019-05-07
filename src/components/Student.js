@@ -12,7 +12,6 @@ export default class Student extends React.Component {
       value: sliderValue
     }
     this.props.socket.emit("change-value", user);
-    
   }
 
   render()
@@ -21,9 +20,8 @@ export default class Student extends React.Component {
     <div>
       <h2>Student</h2>
       <form>
-      <input onChange={this.handleSlider} type="range" max="10" min="0" />
+        <input onChange={this.handleSlider} type="range" max="10" min="0" />
       </form>
-      <p>{this.props.foo}</p>
     </div>
   )
 }

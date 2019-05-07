@@ -22,21 +22,18 @@ io.on("connection", socket => {
     userId: socket.id,
     value: null
   });
+
   connectCounter++;
-  console.log(connectCounter);
+  console.log("Active connected users:", connectCounter);
 
   socket.on("disconnect", function() {
     connectCounter--;
-    console.log(connectCounter);
+    console.log("Active connected users: ", connectCounter);
     users = users.filter(user => user.userId !== socket.id);
   });
 
   socket.on("change-value", data => {
-    users.push({
-      userId: data.uid,
-      value: data.value
-    });
-    console.log(users);
+    users.map(user => (user.userId === data.uid) ? user.value = data.value : "");
   })
 
   socket.on("get-users", function() {
