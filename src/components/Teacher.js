@@ -5,7 +5,8 @@ export default class Teacher extends React.Component {
     super(props);
 
     this.state = {
-      rooms: []
+      rooms: [],
+      currentRoom: null
     };
   }
 
@@ -34,12 +35,24 @@ export default class Teacher extends React.Component {
   enterRoom = room => {
     console.log(this.props.socket);
     this.props.socket.emit("enterRoom", room);
+    this.setState({
+      currentRoom: room
+    });
+  };
+
+  studentInput = () => {
+    this.props.socket.emit("getRoomSnapshot");
   };
 
   render() {
     return (
       <div>
-        <h2>Teacher- {this.props.foo}</h2>
+        <h2>Teacher</h2>
+        {this.state.currentRoom !== null ? (
+          <h3>{this.state.currentRoom}</h3>
+        ) : (
+          ""
+        )}
         <button onClick={this.createRoom}>Create Room</button>
         <button onClick={this.test}>Test</button>
         <ul style={{ listStyleType: "none" }}>
@@ -57,6 +70,10 @@ export default class Teacher extends React.Component {
             );
           })}
         </ul>
+
+        <div>
+          <button onClick={this.studentInput}>Get user info</button>
+        </div>
       </div>
     );
   }

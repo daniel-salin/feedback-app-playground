@@ -54,4 +54,6 @@ io.on("connection", socket => {
     io.emit("createdRoom", data);
     console.log(data);
   });
+
+  socket.on("getRoomSnapshot", () => {});
 });

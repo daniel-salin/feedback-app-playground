@@ -33,6 +33,8 @@ export default class Student extends React.Component {
         <form>
           <input onChange={this.handleSlider} type="range" max="10" min="0" />
         </form>
+
+        <div id="Output" />
       </div>
     );
   }
