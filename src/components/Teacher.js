@@ -37,6 +37,7 @@ export default class Teacher extends React.Component {
         <h2>Teacher- {this.props.foo}</h2>
         <button onClick={this.createRoom}>Create Room</button>
         <button onClick={this.test}>Test</button>
+        <ul />
       </div>
     );
   }
