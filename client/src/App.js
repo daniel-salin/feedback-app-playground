@@ -9,7 +9,7 @@ import LandingPage from "./components/LandingPage";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.socket = io.connect("https://feedback-socket-backend.herokuapp.com");
+    this.socket = io.connect("https://feedbacktest.herokuapp.com");
   }
 
   getUserHandler = e => {
