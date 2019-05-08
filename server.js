@@ -10,7 +10,8 @@ var server = app.listen(app.get("port"), () => {
 });
 
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname + "/public/index.html"));
+  /* res.sendFile(path.join(__dirname + "/public/index.html")); */
+  res.sendFile("hello");
 });
 
 // User data
