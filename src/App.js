@@ -5,7 +5,6 @@ import "./App.css";
 import Student from "./components/Student";
 import Teacher from "./components/Teacher";
 import LandingPage from "./components/LandingPage";
-import Timer from "./components/Timer";
 
 class App extends React.Component {
   constructor(props) {
@@ -23,20 +22,6 @@ class App extends React.Component {
         <h1>Feedback App</h1>
         <Router>
           <div>
-            {/* <nav>
-              <ul>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/student/">Student</Link>
-                </li>
-                <li>
-                  <Link to="/teacher/">Teacher</Link>
-                </li>
-              </ul>
-            </nav> */}
-
             <button>
               <Link to="/teacher/">Teacher</Link>
             </button>

@@ -1,5 +1,6 @@
 import React from "react";
 import Timer from "./Timer";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 export default class Teacher extends React.Component {
   constructor(props) {
@@ -79,27 +80,29 @@ export default class Teacher extends React.Component {
         ) : (
           ""
         )}
-        <button onClick={this.createRoom}>Create Room</button>
+
         <ul style={{ listStyleType: "none" }}>
           {this.state.rooms.map(room => {
             return (
-              <button
-                key={room}
-                value={room}
-                onClick={() => {
-                  this.enterRoom(room);
-                }}
-              >
-                Room ID: {room}
-              </button>
+              <Router>
+                <button
+                  key={room}
+                  value={room}
+                  onClick={() => {
+                    this.enterRoom(room);
+                  }}
+                >
+                  Room ID: {room}
+                </button>
+              </Router>
             );
           })}
         </ul>
-        <Timer />
         <div>
           <button onClick={this.studentInput}>Get user info</button>
         </div>
         <button onClick={this.startLecture}>Start counter!</button>
+        <Timer />
       </div>
     );
   }
