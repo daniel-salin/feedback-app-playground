@@ -5,6 +5,7 @@ import "./App.css";
 import Student from "./components/Student";
 import Teacher from "./components/Teacher";
 import LandingPage from "./components/LandingPage";
+import Timer from "./components/Timer";
 
 class App extends React.Component {
   constructor(props) {
