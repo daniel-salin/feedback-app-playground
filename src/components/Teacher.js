@@ -72,15 +72,23 @@ export default class Teacher extends React.Component {
     return (
       <div>
         <h2>Teacher</h2>
-        {this.state.currentRoom !== null 
-          ? (
-            <div className="current-room-container" style={{background:"black",color:"white",padding:"10px",margin:"10px"}}>
-          <h3>Room: {this.state.currentRoom}</h3>
-          <p>Average Score:{this.state.averageScore}</p>
-          <button>Start Timer</button>
-          <button onClick={this.studentInput}>Get current score</button>
-          </div>) 
-          : ("")}
+        {this.state.currentRoom !== null ? (
+          <div
+            className="current-room-container"
+            style={{
+              background: "black",
+              color: "white",
+              padding: "10px",
+              margin: "10px"
+            }}
+          >
+            <h3>Room: {this.state.currentRoom}</h3>
+            <p>Average Score:{this.state.averageScore}</p>
+            <button onClick={this.studentInput}>Get current score</button>
+          </div>
+        ) : (
+          ""
+        )}
         <button onClick={this.createRoom}>Create Room</button>
         <ul style={{ listStyleType: "none" }}>
           {this.state.rooms.map(room => {
@@ -99,12 +107,11 @@ export default class Teacher extends React.Component {
             );
           })}
         </ul>
-        <Timer currentAverageScore={this.state.averageScore}/>
+        <Timer currentAverageScore={this.state.averageScore} />
         <div>
           <button onClick={this.studentInput}>Get user info</button>
         </div>
         <button onClick={this.startLecture}>Start counter!</button>
-        <Timer />
       </div>
     );
   }

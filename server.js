@@ -3,8 +3,9 @@ const app = require("express")();
 var socket = require("socket.io");
 
 // App setup
-var server = app.listen(8000, () => {
-  console.log("listening to request on port 8000");
+app.set("port", process.env.PORT || 5000);
+var server = app.listen(app.get("port"), () => {
+  console.log("listening to request on ", app.get("port"));
 });
 
 // User data
