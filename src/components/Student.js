@@ -3,8 +3,10 @@ import React from "react";
 export default class Student extends React.Component {
   constructor(props) {
     super(props);
-
     this.roomInputValue = React.createRef();
+    this.state = {
+      currentRoom: null
+    }
   }
 
   handleSlider = e => {
@@ -20,6 +22,9 @@ export default class Student extends React.Component {
     e.preventDefault();
     const roomInput = this.roomInputValue.current.value;
     this.props.socket.emit("enterRoom", roomInput, false);
+    this.setState({
+      currentRoom: roomInput
+    });
   };
 
   render() {
@@ -30,10 +35,15 @@ export default class Student extends React.Component {
           <input ref={this.roomInputValue} type="text" />
           <button>Join Room</button>
         </form>
-        <form>
-          <input onChange={this.handleSlider} type="range" max="10" min="0" />
-        </form>
-
+        {(this.state.currentRoom !== null) 
+          ? (
+            <div className="current-room-container" style={{background:"black",color:"white",padding:"10px",margin:"10px"}}>
+              <h2>Welcome to room {this.state.currentRoom}</h2>
+              <form>
+                <input onChange={this.handleSlider} type="range" max="10" min="0" />
+              </form>
+            </div>)
+          : ""}
         <div id="Output" />
       </div>
     );

@@ -43,7 +43,6 @@ export default class Teacher extends React.Component {
       this.setState({
         currentRoomStatus: data
       }); 
-      console.log(this.state.currentRoomStatus);
       const numberOfUsers = this.state.currentRoomStatus.filter(user => user.role === "student").length;
       const filterUsersArray = this.state.currentRoomStatus.filter(user => user.role === "student");
       const scoreArray = filterUsersArray.map(user => {
@@ -68,9 +67,11 @@ export default class Teacher extends React.Component {
         <h2>Teacher</h2>
         {this.state.currentRoom !== null 
           ? (
-            <div>
-          <h3>{this.state.currentRoom}</h3>
-          <p>{this.state.averageScore}</p>
+            <div className="current-room-container" style={{background:"black",color:"white",padding:"10px",margin:"10px"}}>
+          <h3>Room: {this.state.currentRoom}</h3>
+          <p>Average Score:{this.state.averageScore}</p>
+          <button>Start Timer</button>
+          <button onClick={this.studentInput}>Get current score</button>
           </div>) 
           : ("")}
         <button onClick={this.createRoom}>Create Room</button>
@@ -89,9 +90,6 @@ export default class Teacher extends React.Component {
             );
           })}
         </ul>
-        <div>
-          <button onClick={this.studentInput}>Get user info</button>
-        </div>
       </div>
     );
   }
