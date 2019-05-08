@@ -9,10 +9,10 @@ var server = app.listen(app.get("port"), () => {
   console.log("listening to request on ", app.get("port"));
 });
 
-app.get("/", function(req, res) {
-  /* res.sendFile(path.join(__dirname + "/public/index.html")); */
-  res.sendFile("hello");
-});
+// Express only serves static assets in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 // User data
 let users = [];
