@@ -1,4 +1,5 @@
 import React from "react";
+import Timer from "./Timer";
 
 export default class Teacher extends React.Component {
   constructor(props) {
@@ -42,22 +43,27 @@ export default class Teacher extends React.Component {
     this.props.socket.on("usersInRoom", data => {
       this.setState({
         currentRoomStatus: data
-      }); 
-      const numberOfUsers = this.state.currentRoomStatus.filter(user => user.role === "student").length;
-      const filterUsersArray = this.state.currentRoomStatus.filter(user => user.role === "student");
+      });
+      console.log(this.state.currentRoomStatus);
+      const numberOfUsers = this.state.currentRoomStatus.filter(
+        user => user.role === "student"
+      ).length;
+      const filterUsersArray = this.state.currentRoomStatus.filter(
+        user => user.role === "student"
+      );
       const scoreArray = filterUsersArray.map(user => {
-        return parseInt(user.value)
+        return parseInt(user.value);
       });
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       const totalScore = scoreArray.reduce(reducer);
-      const averageScore = totalScore/numberOfUsers;
+      const averageScore = totalScore / numberOfUsers;
       console.log("score array: ", scoreArray);
       console.log("total score: ", totalScore);
       console.log("number of users: ", numberOfUsers);
       console.log("average score: ", averageScore);
       this.setState({
         averageScore: averageScore
-      }); 
+      });
     });
   };
 
@@ -90,6 +96,11 @@ export default class Teacher extends React.Component {
             );
           })}
         </ul>
+        <Timer currentAverageScore={this.state.averageScore}/>
+        <div>
+          <button onClick={this.studentInput}>Get user info</button>
+        </div>
+        <button onClick={this.startLecture}>Start counter!</button>
       </div>
     );
   }
