@@ -3,15 +3,16 @@ const app = require("express")();
 var socket = require("socket.io");
 var path = require("path");
 
+
+
 // App setup
 app.set("port", process.env.PORT || 5000);
 var server = app.listen(app.get("port"), () => {
   console.log("listening to request on ", app.get("port"));
-});
-
-app.get("/", function(req, res) {
-  /* res.sendFile(path.join(__dirname + "/public/index.html")); */
-  res.sendFile("hello");
+  // Express only serves static assets in production
+  if (process.env.NODE_ENV === "production") {
+    app.use(express.static("build"));
+   }
 });
 
 // User data
